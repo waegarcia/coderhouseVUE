@@ -1,24 +1,10 @@
-# proyecto-vue-cli-con-formulario
+# SEGUNDA ENTREGA DEL PROYECTO FINAL
 
-## Project setup
-```
-npm install
-```
+## LOGIN
+### Administrador:
+* Correo: admin@food.com - Contraseña: admin
+### Cliente:
+Cualquier usuario puede ingresar como cliente logueandose o registrandose.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## VERSION WEB DEL PROYECTO
+https://coderhouse-vue-bqawu.ondigitalocean.app/
