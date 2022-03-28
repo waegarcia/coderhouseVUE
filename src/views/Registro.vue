@@ -1,65 +1,81 @@
 <template>
-    <v-container>
-        <v-row class="d-flex align-center justify-center">
-            <h2 class="ma-5">Registro de nuevos clientes</h2>
-        </v-row>
-        <v-row class="d-flex align-center justify-center">
-            <v-card class="col-6">
-                <v-form ref="form" v-model="valid" lazy-validation>
-                    <v-text-field
-                    v-model="name"
-                    :counter="10"
-                    :rules="nameRules"
-                    label="Nombre"
-                    required
-                    ></v-text-field>
+    <div>
+        <v-container>
+            <v-row class="d-flex align-center justify-center">
+                <h2 class="ma-5">Registro de nuevos clientes</h2>
+            </v-row>
+            <v-row class="d-flex align-center justify-center">
+                <v-card class="col-6">
+                    <v-form ref="form" v-model="valid" lazy-validation>
+                        <v-text-field
+                        v-model="name"
+                        :counter="10"
+                        :rules="nameRules"
+                        label="Nombre"
+                        required
+                        ></v-text-field>
 
-                    <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    label="E-mail"
-                    required
-                    ></v-text-field>
+                        <v-text-field
+                        v-model="email"
+                        :rules="emailRules"
+                        label="E-mail"
+                        required
+                        ></v-text-field>
 
-                    <v-text-field
-                    type="password"
-                    v-model="passwordUno"
-                    :rules="passwordRules"
-                    label="Contraseña"
-                    ></v-text-field>
+                        <v-text-field
+                        type="password"
+                        v-model="passwordUno"
+                        :rules="passwordRules"
+                        label="Contraseña"
+                        ></v-text-field>
 
-                    <v-text-field
-                    type="password"
-                    v-model="passwordDos"
-                    :rules="passwordRules"
-                    label="Repetir Contraseña"
-                    ></v-text-field>
+                        <v-text-field
+                        type="password"
+                        v-model="passwordDos"
+                        :rules="passwordRules"
+                        label="Repetir Contraseña"
+                        ></v-text-field>
 
-                    <v-select
-                    v-model="select"
-                    :items="paises"
-                    :rules="[(v) => !!v || 'Pais es requerido']"
-                    label="Pais"
-                    required
-                    ></v-select>
+                        <v-select
+                        v-model="select"
+                        :items="paises"
+                        :rules="[(v) => !!v || 'Pais es requerido']"
+                        label="Pais"
+                        required
+                        ></v-select>
 
-                    <v-checkbox
-                    v-model="checkbox"
-                    :rules="[(v) => !!v || 'Debe aceptar los terminos y condiciones para continuar!']"
-                    label="Acepta terminos y condiciones?"
-                    required
-                    ></v-checkbox>
+                        <v-checkbox
+                        v-model="checkbox"
+                        :rules="[(v) => !!v || 'Debe aceptar los terminos y condiciones para continuar!']"
+                        label="Acepta terminos y condiciones?"
+                        required
+                        ></v-checkbox>
 
-                    <v-btn :disabled="!valid" color="success" class="mr-4" 
-                        @click="validate"><b> Confirmar </b></v-btn>
-                    <v-btn color="error" class="mr-4" @click="reset"><b> Limpiar </b></v-btn>
-                </v-form>
-            </v-card>
-        </v-row>
-    </v-container>
+                        <v-btn :disabled="!valid" color="success" class="mr-4" 
+                            @click="validate"><b> Confirmar </b></v-btn>
+                        <v-btn color="error" class="mr-4" @click="reset"><b> Limpiar </b></v-btn>
+                    </v-form>
+                </v-card>
+            </v-row>
+        </v-container>
+
+        <div class="text-center">
+            <v-dialog v-model="dialog" width="500" persistent>
+                <v-card>
+                    <v-card-title>Usuario registrado con exito!</v-card-title>
+                    <v-divider></v-divider>
+                    <v-card-actions>
+                        <v-btn color="primary" @click="dialog = false"><b>Aceptar</b></v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+        </div>
+    </div>
 </template>
 
 <script>
+import axios from "axios"
+
     export default {
         name: "Registro",
         data: () => ({
@@ -83,12 +99,34 @@
             select: null,
             paises: ["Argentina", "Uruguay", "Peru", "Colombia"],
             checkbox: false,
+            payload: {
+                name: "",
+                email: "",
+                pais: ""
+            },
+            dialog: false
         }),
         methods: {
             validate() {
                 if (this.$refs.form.validate()) {
-                    this.$router.push("/user")
+
+                    this.payload.name = this.name
+                    this.payload.email = this.email
+                    this.payload.pais = this.select
+
+                    this.postProducto();
                 }
+            },
+            postProducto(){
+                axios.post("https://61b529d10e84b70017331a82.mockapi.io/formUser", this.payload)
+                    .then(data => {
+                        console.log("Usuario creado: ", data.data);
+                    })
+                    .catch(err => console.error(`Error en la consulta a la API: ${err}`))
+                    .finally(() => {console.log("Finalizo el POST usuario a Mockapi");
+                        this.dialog = true;
+                        this.reset();
+                    })
             },
             reset() {
                 this.$refs.form.reset();
