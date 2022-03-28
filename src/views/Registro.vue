@@ -74,8 +74,6 @@
 </template>
 
 <script>
-import axios from "axios"
-
     export default {
         name: "Registro",
         data: () => ({
@@ -109,24 +107,14 @@ import axios from "axios"
         methods: {
             validate() {
                 if (this.$refs.form.validate()) {
-
                     this.payload.name = this.name
                     this.payload.email = this.email
                     this.payload.pais = this.select
-
-                    this.postProducto();
+                    
+                    this.$store.dispatch('postUsuario', this.payload)
+                    this.dialog = true;
+                    this.reset();
                 }
-            },
-            postProducto(){
-                axios.post("https://61b529d10e84b70017331a82.mockapi.io/formUser", this.payload)
-                    .then(data => {
-                        console.log("Usuario creado: ", data.data);
-                    })
-                    .catch(err => console.error(`Error en la consulta a la API: ${err}`))
-                    .finally(() => {console.log("Finalizo el POST usuario a Mockapi");
-                        this.dialog = true;
-                        this.reset();
-                    })
             },
             reset() {
                 this.$refs.form.reset();
