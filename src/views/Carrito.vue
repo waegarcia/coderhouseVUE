@@ -3,7 +3,7 @@
         <h1 class="mt-5">Carrito de compras</h1>
         <v-container>
             <v-row>
-                <v-col cols="3" v-for="producto in productosCarrito" :key="producto.id">
+                <v-col cols="3" v-for="producto in carritoList" :key="producto.id">
                     <v-card class="text-start">
                         <img style="max-width: 100%" :src="producto.imagen" :alt="producto.nombre">
                         <v-card-title>
@@ -21,34 +21,24 @@
 </template>
 
 <script>
-    import axios from "axios"
-
     export default {
         name: 'Carrito',
         data() {
             return {
-                productosCarrito: []
             }
         },
         methods: {
-            getCarrito(){
-                axios.get("https://61b529d10e84b70017331a82.mockapi.io/carrito")
-                    .then(data => { this.productosCarrito = data.data })
-                    .catch(err => console.error(`Error en la consulta a la API: ${err}`))
-                    .finally(() => {console.log("Finalizo el GET carrito a Mockapi");})
-            },
             deleteCarrito(idProducto){
-                axios.delete(`https://61b529d10e84b70017331a82.mockapi.io/carrito/${idProducto}`)
-                .then(data => {
-                    console.log("Producto eliminado del carrito: ", data.data);
-                    this.getCarrito()
-                })
-                .catch(err => console.error(`Error en la consulta a la API: ${err}`))
-                .finally(() => {console.log("Finalizo el DELETE carrito a Mockapi");})
+                this.$store.dispatch("deleteCarritoAction", idProducto)
+            }
+        },
+        computed: {
+            carritoList(){
+                return this.$store.state.carrito
             }
         },
         mounted(){
-            this.getCarrito()
+            this.$store.dispatch("getCarritoAction")
         }
     }
 </script>

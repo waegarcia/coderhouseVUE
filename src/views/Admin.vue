@@ -15,7 +15,7 @@
 
                 <v-col>
                     <v-card>
-                        <v-data-table :headers="productosHeaders" :items="productos">
+                        <v-data-table :headers="productosHeaders" :items="productosList">
                             <template v-slot:item.acciones="{item}">
                                 <v-btn color="primary" class="ma-1" @click="onModal(item.id, item.nombre, item.precio, item.cantidad)"><b>Modificar</b></v-btn>
                                 <v-btn color="error" class="ma-1" @click="deleteProducto(item.id)"><b>Eliminar</b></v-btn>
@@ -62,13 +62,10 @@
 </template>
 
 <script>
-    import axios from "axios"
-
     export default {
         name: 'Admin',
         data() {
             return {
-                productos: [],
                 productosHeaders: [
                     {text: "Producto", value: "nombre"},
                     {text: "Precio", value: "precio"},
@@ -81,6 +78,7 @@
                     cantidad: 0
                 },
                 productoModificacion: {
+                    id: 0,
                     nombre: "",
                     precio: 0,
                     cantidad: 0
@@ -91,27 +89,13 @@
             }
         },
         methods: {
-            getProducto(){
-                axios.get("https://61b529d10e84b70017331a82.mockapi.io/productos")
-                    .then(data => { 
-                        this.productos = data.data
-                    })
-                    .catch(err => console.error(`Error en la consulta a la API: ${err}`))
-                    .finally(() => {console.log("Finalizo el GET productos a Mockapi");})
-            },
             postProducto(){
                 if (this.productoCreacion.nombre !== "") {
-                    axios.post("https://61b529d10e84b70017331a82.mockapi.io/productos", this.productoCreacion)
-                        .then(data => {
-                            console.log("Producto creado: ", data.data);
-                            this.getProducto()
-                        })
-                        .catch(err => console.error(`Error en la consulta a la API: ${err}`))
-                        .finally(() => {console.log("Finalizo el POST productos a Mockapi");
-                            this.productoCreacion.nombre = ""
-                            this.productoCreacion.precio = 0 
-                            this.productoCreacion.cantidad = 0
-                        })
+                    this.$store.dispatch("postProductosAction", this.productoCreacion)
+
+                    this.productoCreacion.nombre = ""
+                    this.productoCreacion.precio = 0 
+                    this.productoCreacion.cantidad = 0
                 } else {
                     this.dialogError = true
                     console.log("No se puede crear un producto vacio");
@@ -120,32 +104,25 @@
             onModal(id, nombre, precio, cantidad){
                 this.dialog = true
                 this.idModificar = id
+                this.productoModificacion.id = id
                 this.productoModificacion.nombre = nombre
                 this.productoModificacion.precio = precio
                 this.productoModificacion.cantidad = cantidad
             },
             putProducto(idProducto){
-                axios.put(`https://61b529d10e84b70017331a82.mockapi.io/productos/${idProducto}`, this.productoModificacion)
-                    .then(data => {
-                            console.log("Producto modificado: ", data.data);
-                        this.getProducto()
-                    })
-                    .catch(err => console.error(`Error en la consulta a la API: ${err}`))
-                    .finally(() => {console.log("Finalizo el PUT productos a Mockapi");})
+                if(idProducto === this.productoModificacion.id){
+                    this.$store.dispatch("putProductoAction", this.productoModificacion)
+                }
                 this.dialog = false
             },
             deleteProducto(idProducto){
-                axios.delete(`https://61b529d10e84b70017331a82.mockapi.io/productos/${idProducto}`)
-                .then(data => {
-                    console.log("Producto eliminado: ", data.data);
-                    this.getProducto()
-                })
-                .catch(err => console.error(`Error en la consulta a la API: ${err}`))
-                .finally(() => {console.log("Finalizo el DELETE productos a Mockapi");})
-            },
+                this.$store.dispatch("deleteProductosAction", idProducto)
+            }
         },
-        mounted(){
-            this.getProducto()
+        computed: {
+            productosList(){
+                return this.$store.state.productos
+            }
         }
     }
 </script>
