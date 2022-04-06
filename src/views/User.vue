@@ -54,11 +54,14 @@
     },
     computed: {
       productosList(){
-          return this.$store.state.productos
+        return this.$store.state.productos
       },
       carritoContador(){
         return this.$store.state.carritoCounter
       }
+    },
+    mounted(){
+      this.$store.dispatch("getCarritoAction")
     }
   }
 </script>

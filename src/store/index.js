@@ -23,6 +23,7 @@ export default new Vuex.Store({
     // CARRITO
     getCarritoMutation(state, payload){
       state.carrito = payload;
+      state.carritoCounter = state.carrito.length
     },
     postCarritoMutation(state){
       state.carritoCounter++
