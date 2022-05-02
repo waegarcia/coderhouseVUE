@@ -1,6 +1,13 @@
 <template>
-    <div class="user">
+    <div class="carrito">
         <h1 class="mt-5">Carrito de compras</h1>
+        <v-row class="d-flex align-center flex-row-reverse ma-5" style="position:sticky; top:45px; z-index:5">
+            <router-link to="/gracias" style="text-decoration: none; color: white">
+                <v-btn color="success mr-15">
+                    <b class="mr-3">Finalizar Pedido</b>
+                </v-btn>
+            </router-link>
+        </v-row>
         <v-container>
             <v-row>
                 <v-col cols="3" v-for="producto in carritoList" :key="producto.id">

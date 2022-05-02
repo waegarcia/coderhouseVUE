@@ -2,7 +2,7 @@
     <div>
         <v-container>
             <v-row class="d-flex align-center justify-center">
-                <h2 class="ma-5">Registro de nuevos clientes</h2>
+                <h2 class="ma-5">Registro de nuevos usuarios</h2>
             </v-row>
             <v-row class="d-flex align-center justify-center">
                 <v-card class="col-6">

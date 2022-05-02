@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <h1 class="mt-5">Menu</h1>
+    <h1 class="mt-5">Nuestros Productos</h1>
     <v-row class="d-flex align-center flex-row-reverse ma-5" style="position:sticky; top:45px; z-index:5">
       <router-link to="/carrito" style="text-decoration: none; color: white">
         <v-btn color="success mr-15">

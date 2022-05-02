@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-container class="pa-5">
-            <h1>Bienvenidos a Vuegetarian restaurante!</h1>
+            <h1>Bienvenidos a Vuegetarian Market!</h1>
         </v-container>
         <v-row>
             <v-carousel cycle :show-arrows="false">
@@ -12,8 +12,8 @@
         </v-row>
         <v-container class="pt-15">
             <v-row class="d-flex flex-column align-center justify-center">
-                <p>Vuegetarian - Restaurante Vegetariano.
-                    <br>Martes a domingos desde el mediodía ✨Delicias vegetarianas y veganas 🥕Café de especialidad ☕Calle Falsa 1234, @vuegetarian
+                <p>Vuegetarian - Market Vegetariano.
+                    <br>Martes a domingos desde el mediodía ✨Delicias vegetarianas y veganas 🥕 Calle Falsa 1234, @vuegetarian
                     <br>DELIVERY @rappiargentina @vgo.ar @pedidosya
                     <br>TAKE AWAY 👇👇👇
                 </p>
@@ -31,19 +31,19 @@
             return {
                 items: [
                     {
-                        src: 'https://i.ytimg.com/vi/1w6NooZQlS4/maxresdefault.jpg'
+                        src: 'https://firebasestorage.googleapis.com/v0/b/coderhousevue.appspot.com/o/banner1.jpg?alt=media&token=fe0cb255-d9ff-4c30-bdaa-9ec85614b4b8'
                     },
                     {
-                        src: 'https://www.clara.es/medio/2022/02/07/recetas-vegetarianas-arroz-lentejas_81304dbc_1280x1172.jpg'
+                        src: 'https://firebasestorage.googleapis.com/v0/b/coderhousevue.appspot.com/o/banner2.jpg?alt=media&token=637ee895-c335-4a0d-86a0-ba046e77435f'
                     },
                     {
-                        src: 'https://www.comedera.com/wp-content/uploads/2021/01/vegetable-skewer-3317060_1280.jpg'
+                        src: 'https://firebasestorage.googleapis.com/v0/b/coderhousevue.appspot.com/o/banner3.png?alt=media&token=3d43757a-c6af-4f31-859c-a1ce4c983fe9'
                     },
                     {
-                        src: 'https://recetasveganas.net/wp-content/uploads/2019/11/arroz-verduras-salsa-recetas-vegetarianas-invierno.jpg',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/coderhousevue.appspot.com/o/banner4.jpg?alt=media&token=6727355a-f882-4f4f-a623-b8e997ca0082',
                     },
                     {
-                        src: 'https://recetasveganas.net/wp-content/uploads/2019/10/recetas-vegetarianas-calabacines-rellenos-facil2.png'
+                        src: 'https://firebasestorage.googleapis.com/v0/b/coderhousevue.appspot.com/o/banner5.jpg?alt=media&token=3e754832-277a-4a3e-b9b7-8608b26296f1'
                     },
                 ],
             }

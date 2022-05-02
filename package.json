@@ -1,5 +1,5 @@
 {
-  "name": "tercera-entrega-proyecto-final",
+  "name": "entrega-proyecto-final",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
-    "core-js": "^3.21.1",
+    "core-js": "^3.22.3",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuetify": "^2.6.4",
